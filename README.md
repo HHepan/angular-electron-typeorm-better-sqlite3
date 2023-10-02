@@ -1,6 +1,6 @@
 # 简介
 electron + angular + typeorm + sqlite3 实现前后端不分离的桌面app开发<br>
-实现了热加载
+实现了热加载<br>
 实现了数据库
 # 运行
 ```

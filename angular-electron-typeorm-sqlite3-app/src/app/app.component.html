@@ -1,0 +1,15 @@
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <button (click)="addItem()">Add Item</button>
+  <button *ngIf="itemList.length > 0" (click)="deleteItem()">Delete Item</button>
+  <h2>Here is the contents of the database: </h2>
+  <div>
+    <ul style="list-style: none">
+      <li *ngFor="let item of itemList">
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
+</div>

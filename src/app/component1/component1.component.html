@@ -1,0 +1,18 @@
+<table class="table table-striped mt-3">
+  <thead class="table-primary">
+  <tr class="info">
+    <th>序号</th>
+    <th>key1</th>
+    <th>key2</th>
+    <th>key3</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of itemArr, index as i">
+    <td>{{ i }}</td>
+    <td>value{{ item }}</td>
+    <td>value{{ item }}</td>
+    <td>value{{ item }}</td>
+  </tr>
+  </tbody>
+</table>

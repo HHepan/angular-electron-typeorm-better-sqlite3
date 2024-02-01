@@ -1,0 +1,17 @@
+.menu {
+  position: fixed;
+  width: 13rem;
+}
+
+.content {
+  position: relative;
+  left: 14rem;
+  width: calc(100% - 15rem);
+  padding-bottom: 3em;
+}
+
+.whole {
+  display: flex;
+  flex-direction: row; /* 水平排列 */
+  height: 100vh; /* 占满整个视口高度 */
+}

@@ -4,7 +4,7 @@
     "schematicCollections": [
       "@angular-eslint/schematics"
     ],
-    "analytics": "8ab06e11-c9d0-489d-9353-9228be3dd618"
+    "analytics": false
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -37,9 +37,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/@fortawesome/fontawesome-free/js/all.js"
+            ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js",
               "replaceDuplicatePlugins": true
@@ -135,15 +140,29 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "angular-electron:build"
+            "browserTarget": "angular-electron:build"
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular-builders/custom-webpack:karma",
           "options": {
-            "polyfills": ["src/polyfills-test.ts"],
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills-test.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "globalMocks": ["styleTransform", "matchMedia", "getComputedStyle"],
+            "karmaConfig": "src/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "scripts": [],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "customWebpackConfig": {
+              "path": "./angular.webpack.js",
+              "replaceDuplicatePlugins": true
+            }
           }
         },
         "lint": {

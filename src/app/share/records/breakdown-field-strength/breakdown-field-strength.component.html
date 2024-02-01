@@ -1,0 +1,143 @@
+<h2 class="accordion-header" id="breakdown-field-strength-heading">
+  <button #accordionButton class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#breakdown-field-strength-collapse" aria-expanded="false" aria-controls="breakdown-field-strength-collapse">
+    <span style="font-size: 1.3em">主绝缘击穿场强</span>
+    <span class="mx-2" style="font-size: 1em">总数据条数: {{ breakdownFieldStrengths.length }}</span>
+    <span class="mx-2" style="font-size: 1em">最近更新时间: {{ lastUpdateTime | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+  </button>
+</h2>
+<div id="breakdown-field-strength-collapse" class="accordion-collapse collapse" aria-labelledby="breakdown-field-strength-heading">
+  <div class="accordion-body">
+    <div class="row">
+      <div class="col-6 text-center">
+        <app-chart [mergeOption]="echartsOption"></app-chart>
+      </div>
+      <div class="col-4">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">序号</th>
+            <th scope="col">时间</th>
+            <th scope="col">击穿场强(kV/mm)</th>
+            <th scope="col">采样位置</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let breakdownFieldStrength of breakdownFieldStrengths; index as i">
+            <th *ngIf="i <= displayItemNumber - 1" scope="row">{{ i + 1 }}</th>
+            <td *ngIf="i <= displayItemNumber - 1">{{ breakdownFieldStrength.createTime | date: 'yyyy-MM-dd' }}</td>
+            <td *ngIf="i <= displayItemNumber - 1">{{ breakdownFieldStrength.value }}</td>
+            <td *ngIf="i <= displayItemNumber - 1">{{ breakdownFieldStrength.position }}</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="addData text-center">
+              <button class="btn btn-sm btn-outline-primary" (click)="onModalOpen()">
+                <i class="fa-solid fa-plus mx-1"></i>
+                添加
+              </button>
+              &nbsp;
+              <button class="btn btn-sm btn-outline-info" (click)="onModalForMoreOpen()">
+                <i class="fa-solid fa-search mx-1"></i>
+                查看更多
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<app-yz-modal *ngIf="isShowModal" [width]="(APP_CONFIG.modalWidthNumber) + 'px'">
+  <form [formGroup]="formGroup">
+    <div class="text-end m-3">
+      <button type="button" class="btn-close" aria-label="Close" (click)="onModalClose()"></button>
+    </div>
+    <div class="mb-3 row">
+      <label for="date" class="col-sm-3 col-form-label offset-1">时间</label>
+      <div class="col-sm-7">
+        <input type="date" class="form-control" id="date" formControlName="createTime">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="击穿场强" class="col-sm-3 col-form-label offset-1">击穿场强(kV/mm)</label>
+      <div class="col-sm-7">
+        <input type="number" class="form-control" id="击穿场强" formControlName="value">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="position" class="col-sm-3 col-form-label offset-1">采样位置</label>
+      <div class="col-sm-7">
+        <input type="text" class="col-sm-8 m-lg-1 form-co" formControlName="positionLine">线路&nbsp;
+        <input id="position" type="number" class="col-sm-6 m-lg-1 form-co" formControlName="position">米处
+      </div>
+    </div>
+    <div class="text-end mx-5 mb-4">
+      <button class="btn btn-primary" [disabled]="formGroup.invalid" (click)="onSubmit(formGroup)">保存</button>
+    </div>
+  </form>
+</app-yz-modal>
+
+<app-yz-modal *ngIf="isShowModalForMore && !isShowModalForEdit" [width]="(APP_CONFIG.modalWidthNumber + APP_CONFIG.extraModalWidNum) + 'px'">
+  <div class="text-end m-3">
+    <button type="button" class="btn-close" aria-label="Close" (click)="onModalForMoreClose()"></button>
+  </div>
+  <div class="overflow-auto px-3">
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th scope="col">序号</th>
+        <th scope="col">时间</th>
+        <th scope="col">电导率(S/m)</th>
+        <th scope="col">采样位置</th>
+        <th scope="col">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let breakdownFieldStrength of breakdownFieldStrengths; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ breakdownFieldStrength.createTime | date: 'yyyy-MM-dd' }}</td>
+        <td>{{ breakdownFieldStrength.value }}</td>
+        <td>{{ breakdownFieldStrength.position}}</td>
+        <td>
+          <span (click)="onDelete(breakdownFieldStrength)" style="cursor: pointer" title="删除">
+            <i class="fa-solid fa-trash-can" style="color: #ed3330;"></i>
+          </span>
+          <span (click)="onModalForEditOpen(breakdownFieldStrength)" style="cursor: pointer" title="修改" class="mx-3">
+            <i class="fa-solid fa-pen-to-square" style="color: #3574F0;"></i>
+          </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</app-yz-modal>
+
+<app-yz-modal *ngIf="isShowModalForEdit"  [width]="(APP_CONFIG.modalWidthNumber) + 'px'">
+  <form [formGroup]="editFormGroup">
+    <div class="text-end m-3">
+      <button type="button" class="btn-close" aria-label="Close" (click)="onModalForEditClose()"></button>
+    </div>
+    <div class="mb-3 row">
+      <label for="date2" class="col-sm-3 col-form-label offset-1">时间</label>
+      <div class="col-sm-7">
+        <input type="date" class="form-control" id="date2" formControlName="createTime">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="S/m2" class="col-sm-3 col-form-label offset-1">击穿场强(kV/mm)</label>
+      <div class="col-sm-7">
+        <input type="text" id="S/m2" class="col-sm-3 m-lg-1 form-co" formControlName="value">&nbsp;
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="position2" class="col-sm-3 col-form-label offset-1">采样位置</label>
+      <div class="col-sm-7">
+        <input type="text" class="col-sm-8 m-lg-1 form-co" formControlName="positionLine">线路&nbsp;
+        <input id="position2" type="number" class="col-sm-6 m-lg-1 form-co" formControlName="position">米处
+      </div>
+    </div>
+    <div class="text-end mx-5 mb-4">
+      <button class="btn btn-primary" type="submit"  [disabled]="editFormGroup.invalid" (click)="onEditSubmit(editFormGroup)">保存</button>
+    </div>
+  </form>
+</app-yz-modal>

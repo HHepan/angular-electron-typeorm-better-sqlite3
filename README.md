@@ -1,3 +1,22 @@
+## Electron App
+### 注意事项
+1. [.npmrc 设置内容](https://github.com/cnpm/cnpmjs.org/issues/1539)
+2. 在windows上打包windows平台运行的包才能正常用
+3. 项目有两个`package.json`文件
+   1. 位于app（`/app`）中的是主进程需要的依赖，`npm install`安装依赖（使用`cnpm install`依赖包的子依赖会放在`node_modules/.store`中，该文件不会被`electron-builder`打包，可能通过设置可以实现打包该内容，问题暂时保留）。
+   2. 在根目录（`/`）的是angular需要的依赖，在下载`angular(渲染器进程)`需要的依赖时需要使用。
+4. 安装完成依赖之后需要对主进程的`better-sqlite3`依赖进行重构 (`cd app && ./node_modules/.bin/electron-rebuild -f -w better-sqlite3` )
+
+### 开发以及打包问题补充阅读
+- [Electron + Angular 开发问题记录](https://segmentfault.com/a/1190000044304527)
+- sqlite3 install & rebuild: https://rxdb.info/electron-database.html
+- https://www.jianshu.com/p/c5d48a58eeb3
+- https://github.com/cnpm/cnpmjs.org/issues/1539
+- electron-rebuild 失败:https://juejin.cn/post/7127271583151816711
+- https://github.com/nodejs/node-gyp#on-windows
+- 安装vs: https://learn.microsoft.com/zh-cn/visualstudio/install/install-visual-studio?view=vs-2022
+- gyp ERR 之类报错解决(未验证): https://juejin.cn/post/7235908012673630245
+---
 [![Angular Logo](https://www.vectorlogo.zone/logos/angular/angular-icon.svg)](https://angular.io/) [![Electron Logo](https://www.vectorlogo.zone/logos/electronjs/electronjs-icon.svg)](https://electronjs.org/)
 
 ![Maintained][maintained-badge]
@@ -14,18 +33,17 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 17 and Electron 27 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 16 and Electron 25 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v17.0.8
-- Electron v27.2.0
+- Angular v16.1.3
+- Electron v25.2.0
 
 With this sample, you can:
 
 - Run your app in a local development environment with Electron & Hot reload
 - Run your app in a production environment
-- Execute your tests with Jest and Playwright (E2E)
 - Package your app into an executable file for Linux, Windows & Mac
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
@@ -159,8 +177,7 @@ Please refer to [HOW_TO file](./HOW_TO.md)
 - Angular 13 & Electron 18 : Branch [angular13](https://github.com/maximegris/angular-electron/tree/angular13)
 - Angular 14 & Electron 21 : Branch [angular14](https://github.com/maximegris/angular-electron/tree/angular14)
 - Angular 15 & Electron 24 : Branch [angular15](https://github.com/maximegris/angular-electron/tree/angular15)
-- Angular 16 & Electron 25 : Branch [angular16](https://github.com/maximegris/angular-electron/tree/angular16)
-- Angular 17 & Electron 27 : (main)
+- Angular 16 & Electron 25 : (main)
 - 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg

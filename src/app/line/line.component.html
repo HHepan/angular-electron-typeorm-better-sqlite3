@@ -1,0 +1,126 @@
+<body (click)="onBodyClick()">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <label class="navbar-brand">电缆线路列表</label>
+      <div class="collapsed navbar-collapse">
+        <form class="d-flex" role="search">
+          <div class="input-group">
+            <input class="form-control me-2" type="search" placeholder="线路名称" aria-label="Search" [formControl]="searchName">
+            <button class="btn btn-outline-success" type="submit" (click)="onSearch(searchName)">查询</button>
+          </div>
+        </form>
+      </div>
+      <button data-bs-toggle="modal" data-bs-target="#myModal" (click)="modelType = 'edit'" hidden="hidden" class="buttonForEdit">edit</button>
+      <button data-bs-toggle="modal" data-bs-target="#myModal" (click)="modelType = 'add'" hidden="hidden" class="buttonForAdd">新增</button>
+      <button class="buttonForAlarmValue" (click)="onWarningSettingModalOpen()" hidden="hidden">设置报警值</button>
+      <button class="buttonForUpdatePassword" (click)="isShowPasswordSettingModal = true" hidden="hidden">设置密码</button>
+    </div>
+  </nav>
+
+  <div class="rowLine mt-2">
+    <div *ngFor="let line of Lines"
+         [ngClass]="{'yz-bg-color-danger': selectedLine === line && isShowDanger(line),
+                   'yz-bg-color-common': selectedLine !== line && mouseoverLine === line.id,
+                   'yz-bg-color-selected': !isShowDanger(line) && (selectedLine === line)}"
+         (mouseenter)="onMouseEnter(line)"
+         (mouseleave)="onMouseLeave()"
+         (click)="onLineClick(line)"
+         (contextmenu)="showContextMenu($event, line)"
+         class="rounded p-3 text-center col-md-2 m-lg-3">
+      <div [ngClass]="{'text-color-danger': isShowDanger(line),
+                     '': !isShowDanger(line)}">
+        <i class="fa-solid fa-plug-circle-bolt fa-3x"></i>
+      </div>
+      <div class="mt-1" style="word-break: break-all"
+           [ngClass]="{'text-color-danger': isShowDanger(line),
+                     '': !isShowDanger(line)}">
+        {{ line.name }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="Lines.length === 0">
+    <div class="mt-5">&nbsp;</div>
+    <div class="mt-5">&nbsp;</div>
+    <div class="text-center mt-5" style="color: #cccccc">
+      <h1><i class="	fa fa-bars"></i>&nbsp;请新建线路</h1>
+      <label>菜单栏&nbsp;->&nbsp;线路&nbsp;->&nbsp;新建</label>
+    </div>
+  </div>
+</body>
+
+
+<!-- 右键菜单栏 -->
+<div class="context-menu" [hidden]="!showMenu">
+    <li (click)="handleMenuItemClick('view', currentLine)">查看详情</li>
+    <li (click)="handleMenuItemClick('edit', currentLine)">编辑</li>
+    <li (click)="handleMenuItemClick('delete', currentLine)">删除</li>
+</div>
+
+<!-- 模态框 -->
+<div class="fade modal modal-lg" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="modelType === 'add'">创建新线路</h4>
+        <h4 class="modal-title" *ngIf="modelType === 'edit'">编辑线路</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="onCloseModel()"></button>
+      </div>
+
+      <!-- 模态框内容 -->
+      <div class="modal-body">
+        <app-line-add *ngIf="modelType === 'add'" (isSubmit)="receiveLoginMessage($event)"></app-line-add>
+        <app-line-edit *ngIf="modelType === 'edit'" [lineId]="lineIdForEdit" (isSubmit)="receiveLoginMessage($event)"></app-line-edit>
+      </div>
+
+      <!-- 模态框底部 -->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-light" data-bs-dismiss="modal">取消</button>-->
+<!--        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">保存</button>-->
+<!--      </div>-->
+
+    </div>
+  </div>
+</div>
+
+<app-yz-modal *ngIf="isShowWarningSettingModal"  [width]="APP_CONFIG.modalWidth">
+  <div class="text-end m-3">
+    <button type="button" class="btn-close" aria-label="Close" (click)="onWarningSettingModalClose()"></button>
+  </div>
+  <div class="mb-3 row">
+    <label for="warningValue" class="col-sm-3 col-form-label offset-1">报警值</label>
+    <div class="col-sm-7">
+      <input type="number" [formControl]="warningValue" class="form-control" id="warningValue">
+    </div>
+    <div class="text-end px-5 mb-2 mt-3">
+      <button class="btn btn-primary" [disabled]="warningValue.invalid" (click)="onWarningValueSubmit()">提交</button>
+    </div>
+  </div>
+</app-yz-modal>
+
+<app-yz-modal *ngIf="isShowPasswordSettingModal" [width]="APP_CONFIG.modalWidth">
+  <div class="text-end m-3">
+    <button type="button" class="btn-close" aria-label="Close" (click)="isShowPasswordSettingModal = false"></button>
+  </div>
+  <div class="mb-3 row">
+    <label for="originPassword" class="col-sm-3 col-form-label offset-1">原密码</label>
+    <div class="col-sm-7">
+      <input type="password" [formControl]="originPassword" class="form-control" id="originPassword">
+      <code *ngIf="originPassword.touched && !isOriginPasswordRight()">原密码错误</code>
+    </div>
+    <label for="password" class="col-sm-3 col-form-label offset-1 mt-3">新密码</label>
+    <div class="col-sm-7 mt-3">
+      <input type="password" [formControl]="password" class="form-control" id="password">
+    </div>
+    <label for="confirmPassword" class="col-sm-3 col-form-label offset-1 mt-3">确认密码</label>
+    <div class="col-sm-7  mt-3">
+      <input type="password" [formControl]="confirmPassword" class="form-control" id="confirmPassword">
+    </div>
+    <div class="text-end px-5 mb-2 mt-3">
+      <button class="btn btn-primary" [disabled]="cantSubmitPassword()" (click)="onPasswordSubmit()">提交</button>
+    </div>
+  </div>
+</app-yz-modal>
+
+

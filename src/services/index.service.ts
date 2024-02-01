@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {ElectronService} from "./electron.service";
-import {Line} from "../../app/entity/line";
 import {from, Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {Item} from "../../app/entity/item";

@@ -4,20 +4,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import {AppDataSource} from "./data-source";
 import {EventsCenter} from "./events.center";
-import {LineRepository} from "./repository/line.repository";
-import {ScoreRepository} from "./repository/score.repository";
-import {PartialDischargeRepository} from "./repository/partial-discharge.repository";
-import {LandingSectionTemperatureRepository} from "./repository/landing-section-temperature.repository";
-import {BreakdownFieldStrengthRepository} from "./repository/breakdown-field-strength.repository";
-import {CarbonylIndexRepository} from "./repository/carbonyl-index.repository";
-import {CrystallinityRepository} from "./repository/crystallinity.repository";
-import {BreakingElongationRepository} from "./repository/breaking-elongation.repository";
-import {ConductivityRepository} from "./repository/conductivity.repository";
-import {DielectricParameterRepository} from "./repository/dielectric-parameter.repository";
-import {DielectricParameterItemRepository} from "./repository/dielectric-parameter-item.repository";
-import {SystemRepository} from "./repository/system.repository";
 import {MainService} from "./main.service";
-import * as electron from "electron";
 import {ItemRepository} from "./repository/item.repository";
 let win: BrowserWindow | null = null;
 const eventsCenter = new EventsCenter();
@@ -29,20 +16,6 @@ function createWindow(): BrowserWindow {
   AppDataSource.initialize().then(r => {
     console.log(AppDataSource.isInitialized);
     // 实例化加载事件
-    new LineRepository(eventsCenter);
-    new ScoreRepository(eventsCenter);
-    new PartialDischargeRepository(eventsCenter);
-    new LineRepository(eventsCenter);
-    new PartialDischargeRepository(eventsCenter);
-    new LandingSectionTemperatureRepository(eventsCenter);
-    new BreakdownFieldStrengthRepository(eventsCenter);
-    new CarbonylIndexRepository(eventsCenter);
-    new CrystallinityRepository(eventsCenter);
-    new BreakingElongationRepository(eventsCenter);
-    new ConductivityRepository(eventsCenter);
-    new DielectricParameterRepository(eventsCenter);
-    new DielectricParameterItemRepository(eventsCenter);
-    new SystemRepository(eventsCenter);
     new ItemRepository(eventsCenter);
     eventsCenter.handleAll();
   })
@@ -115,40 +88,6 @@ try {
       console.log('ipcMain login-success')
       // win?.setSize(size.width * (7 / 8), size.height * (7 / 8));
       win?.setSize(1300, 800);
-      // 创建一个自定义菜单模板
-      const template = [
-        {
-          label: '线路',
-          submenu: [
-            {
-              label: '新建',
-              click: () => {
-                win?.webContents.send('newLine');
-              }
-            }
-          ]
-        },
-        {
-          label: '设置',
-          submenu: [
-            {
-              label: '设置报警值',
-              click: () => {
-                win?.webContents.send('setAlarmValue');
-              }
-            },
-            {
-              label: '修改密码',
-              click: () => {
-                win?.webContents.send('updatePassword');
-              }
-            }
-          ]
-        }
-      ];
-      // @ts-ignore
-      const menu = Menu.buildFromTemplate(template);
-      Menu.setApplicationMenu(menu);
       // 获取屏幕的大小
       const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
@@ -191,7 +130,3 @@ try {
   // Catch Error
   // throw e;
 }
-
-ipcMain.handle('setMaximizable', (event: IpcMainInvokeEvent, isAllowed: boolean) =>{
-  win?.setMaximizable(true);
-});

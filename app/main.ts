@@ -18,6 +18,7 @@ import {DielectricParameterItemRepository} from "./repository/dielectric-paramet
 import {SystemRepository} from "./repository/system.repository";
 import {MainService} from "./main.service";
 import * as electron from "electron";
+import {ItemRepository} from "./repository/item.repository";
 let win: BrowserWindow | null = null;
 const eventsCenter = new EventsCenter();
 const args = process.argv.slice(1),
@@ -42,14 +43,15 @@ function createWindow(): BrowserWindow {
     new DielectricParameterRepository(eventsCenter);
     new DielectricParameterItemRepository(eventsCenter);
     new SystemRepository(eventsCenter);
+    new ItemRepository(eventsCenter);
     eventsCenter.handleAll();
   })
 
   // Create the browser window.
   win = new BrowserWindow({
-    width: 438,
-    height: 655,
-    maximizable: false,
+    width: 1300,
+    height: 800,
+    maximizable: true,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve),
@@ -191,5 +193,5 @@ try {
 }
 
 ipcMain.handle('setMaximizable', (event: IpcMainInvokeEvent, isAllowed: boolean) =>{
-  win?.setMaximizable(isAllowed);
+  win?.setMaximizable(true);
 });

@@ -10,7 +10,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
-import {LoginComponent} from "./login/login.component";
 import {CommonModule, DatePipe, TitleCasePipe} from "@angular/common";
 
 // AoT requires an exported function for factories
@@ -18,7 +17,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule,

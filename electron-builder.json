@@ -1,5 +1,6 @@
 {
   "asar": true,
+  "productName": "海底电缆健康状态管理系统",
   "directories": {
     "output": "release/"
   },
@@ -15,13 +16,10 @@
     }
   ],
   "win": {
-    "icon": "dist/assets/icons",
+    "icon": "dist/assets/icons/node_record.ico",
     "target": [
       "portable"
     ]
-  },
-  "portable": {
-    "splashImage": "dist/assets/icons/electron.bmp"
   },
   "mac": {
     "icon": "dist/assets/icons",

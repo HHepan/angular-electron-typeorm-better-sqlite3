@@ -1,0 +1,64 @@
+.yz-bg-color-danger {
+  background-color: #FFDDDD;
+}
+.yz-bg-color-common {
+  background-color: #f5f3f3;
+}
+.yz-bg-color-danger-selected {
+  background-color: red
+}
+.yz-bg-color-selected {
+  background-color: #DDDDFF;
+}
+.text-color-danger {
+  color: red;
+}
+.rowLine {
+  /* --bs-gutter-x: 1.5rem; */
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+
+.context-menu {
+  /*display: none;*/
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  list-style:none;
+  padding: 0;
+  margin: 0;
+  border-radius: 10px;
+}
+
+.context-menu li {
+  width: 100px;
+  list-style:none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.context-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.buttonForEdit {
+
+}
+
+.buttonForAdd {
+
+}
+
+.buttonForAlarmValue {
+
+}
+
+.buttonForUpdatePassword {
+
+}
+

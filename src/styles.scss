@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -15,7 +16,7 @@ html, body {
   align-items: center;
   justify-content: center;
 
-  background: url(./assets/background.jpg) no-repeat center fixed;
+  //background: url(./assets/example/login.jpg) no-repeat center fixed;
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
   background-size: cover; /* version standardisée */
 
@@ -47,4 +48,24 @@ html, body {
     }
   }
 }
+
+.form-co {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+label {
+  text-align: right !important;
+}
+
+
 

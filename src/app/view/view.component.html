@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a [routerLink]="'../../'"><i class="fa-solid fa-reply fa-2x"></i></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <label class="nav-link active" aria-current="page">{{ line?.name }}-健康状态最新评分：{{ lastScore === -1? '未找到评分，请添加' : lastScore + '分'}}</label>
+        </li>
+      </ul>
+
+      <div class="form-check form-switch mx-3">
+        <input class="form-check-input" [formControl]="switchFormControl" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+        <label class="form-check-label" *ngIf="!switchFormControl.value" for="flexSwitchCheckChecked">打开全部</label>
+        <label class="form-check-label" *ngIf="switchFormControl.value" for="flexSwitchCheckChecked">关闭全部</label>
+      </div>
+      <button class="btn btn-primary" (click)="onOpenModal()">
+        <i class="fa-solid fa-plus"></i>
+        增加测试数据
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <app-score [updateTime]="getUpdateTime(recordKey.score)" [recordTypes]="recordTypes" [isOpen]="isOpen(recordKey.score)" (sendDataToParent)="handleDataFromChild($event)" [lineId]="id"></app-score>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.dielectricParameter)">
+    <app-dielectric-parameter [updateTime]="getUpdateTime(recordKey.dielectricParameter)" [isOpen]="isOpen(recordKey.dielectricParameter)" [lineId]="id"></app-dielectric-parameter>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.partialDischarge)">
+    <app-partial-discharge [updateTime]="getUpdateTime(recordKey.partialDischarge)" [isOpen]="isOpen(recordKey.partialDischarge)" [lineId]="id"></app-partial-discharge>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.landingSectionTemperature)">
+    <app-landing-section-temperature [updateTime]="getUpdateTime(recordKey.landingSectionTemperature)" [isOpen]="isOpen(recordKey.landingSectionTemperature)" [lineId]="id"></app-landing-section-temperature>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.conductivity)">
+    <app-conductivity [updateTime]="getUpdateTime(recordKey.conductivity)" [isOpen]="isOpen(recordKey.conductivity)" [lineId]="id"></app-conductivity>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.breakdownFieldStrength)">
+    <app-breakdown-field-strength [updateTime]="getUpdateTime(recordKey.breakdownFieldStrength)" [isOpen]="isOpen(recordKey.breakdownFieldStrength)" [lineId]="id"></app-breakdown-field-strength>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.carbonylIndex)">
+    <app-carbonyl-index [updateTime]="getUpdateTime(recordKey.carbonylIndex)" [isOpen]="isOpen(recordKey.carbonylIndex)" [lineId]="id"></app-carbonyl-index>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.crystallinity)">
+    <app-crystallinity [updateTime]="getUpdateTime(recordKey.crystallinity)" [isOpen]="isOpen(recordKey.crystallinity)" [lineId]="id"></app-crystallinity>
+  </div>
+  <div class="accordion-item" *ngIf="recordTypes?.includes(formGroupKey.breakingElongation)">
+    <app-breaking-elongation [updateTime]="getUpdateTime(recordKey.breakingElongation)" [isOpen]="isOpen(recordKey.breakingElongation)" [lineId]="id"></app-breaking-elongation>
+  </div>
+</div>
+
+<app-yz-modal *ngIf="isShowModal">
+  <div class="overflow-auto">
+    <form [formGroup]="formGroup">
+      <div class="text-end m-3">
+        <button type="button" class="btn-close" aria-label="Close" (click)="onModalClose()"></button>
+      </div>
+
+      <div class="form-check mx-5">
+        <input class="form-check-input" hidden="hidden" type="checkbox" value="" id="score">
+        <label class="form-check-label" for="score">
+          健康状态评分
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="dielectric-parameter" formControlName="dielectricParameter">
+        <label class="form-check-label" for="dielectric-parameter">
+          频域介电参数
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="partial-discharge" formControlName="partialDischarge">
+        <label class="form-check-label" for="partial-discharge">
+          局放监测数据
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="landing-section-temperature" formControlName="landingSectionTemperature">
+        <label class="form-check-label" for="landing-section-temperature">
+          登录段最高温度
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="conductivity" formControlName="conductivity">
+        <label class="form-check-label" for="conductivity">
+          主绝缘电导率
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="breakdown-field-strength" formControlName="breakdownFieldStrength">
+        <label class="form-check-label" for="breakdown-field-strength">
+          主绝缘击穿场强
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="carbonyl-index" formControlName="carbonylIndex">
+        <label class="form-check-label" for="carbonyl-index">
+          主绝缘羰基指数
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="crystallinity" formControlName="crystallinity">
+        <label class="form-check-label" for="crystallinity">
+          主绝缘结晶度
+        </label>
+      </div>
+      <div class="form-check mx-5">
+        <input class="form-check-input" type="checkbox" value="" id="breaking-elongation" formControlName="breakingElongation">
+        <label class="form-check-label" for="breaking-elongation">
+          主绝缘断裂伸长率
+        </label>
+      </div>
+      <div class="text-end mx-5 mb-4">
+        <button class="btn btn-primary" (click)="onTypeUpdate(formGroup)">保存</button>
+      </div>
+    </form>
+  </div>
+</app-yz-modal>

@@ -1,27 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './shared/components';
-
-import { HomeRoutingModule } from './home/home-routing.module';
-import { DetailRoutingModule } from './detail/detail-routing.module';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    loadChildren: () => import('./line/line.module').then(m => m.LineModule),
   },
   {
-    path: '**',
-    component: PageNotFoundComponent
+    path: 'view/:id',
+    loadChildren: () => import('./view/view.module').then(m => m.ViewModule),
   }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {}),
-    HomeRoutingModule,
-    DetailRoutingModule
   ],
   exports: [RouterModule]
 })

@@ -1,0 +1,49 @@
+<div class="whole">
+  <div class="left">
+    <img class="img-center" src="assets/images/1.gif">
+  </div>
+  <div class="right">
+    <div class="login-center">
+      <div>
+        <div>
+          <div>
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="text-center">
+                  <label>用户登录</label>
+                </h4>
+              </div>
+            </div>
+            <hr>
+            <form (ngSubmit)="onSubmit()">
+              <div class="form-floating">
+                <input style="font-weight: bold" class="form-control" id="username" aria-label="Floating label select example"/>
+                <label for="username"><code>*</code>用户名</label>
+              </div>
+              <div class="form-floating mt-3">
+                <input type="password" style="font-weight: bold" class="form-control" id="password" aria-label="Floating label select example"/>
+                <label for="password"><code>*</code>密码</label>
+              </div>
+              <ng-template [ngIf]="false">
+                <hr>
+                <small class="text-danger">errorInfo</small>
+              </ng-template>
+              <hr>
+              <button type="submit"
+                      class="btn form-control btn-success">登录
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item image1">
+              <div class="carousel-caption">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

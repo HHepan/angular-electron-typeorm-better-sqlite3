@@ -1,6 +1,6 @@
 {
   "asar": true,
-  "productName": "海底电缆健康状态管理系统",
+  "productName": "CS-project-demo",
   "directories": {
     "output": "release/"
   },

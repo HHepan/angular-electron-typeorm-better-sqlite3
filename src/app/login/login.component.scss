@@ -1,0 +1,39 @@
+.whole {
+  display: flex;
+  flex-direction: row; /* 水平排列 */
+  height: 100vh; /* 占满整个视口高度 */
+}
+.left {
+  flex: 2; /* 占据父容器的2/3宽度 */
+  height: 100vh; /* 占满整个视口高度 */
+  background-color: #404B8D;
+  position: relative;
+}
+.right {
+  flex: 1; /* 占据父容器的1/3宽度 */
+  height: 100vh; /* 占满整个视口高度 */
+  position: relative;
+}
+
+.img-center{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.login-center{
+  height: 480px;
+  width: 360px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  border-radius: 25px;
+  border: 2px solid #8AC007;
+  padding: 20px;
+}

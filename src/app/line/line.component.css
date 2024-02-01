@@ -1,64 +1,87 @@
-.yz-bg-color-danger {
-  background-color: #FFDDDD;
+.header {
+  padding: 0 40px;
+  height: 70px;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid #D4B68B;
 }
-.yz-bg-color-common {
-  background-color: #f5f3f3;
-}
-.yz-bg-color-danger-selected {
-  background-color: red
-}
-.yz-bg-color-selected {
-  background-color: #DDDDFF;
-}
-.text-color-danger {
-  color: red;
-}
-.rowLine {
-  /* --bs-gutter-x: 1.5rem; */
-  --bs-gutter-y: 0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: calc(-1 * var(--bs-gutter-y));
-  margin-right: calc(-0.5 * var(--bs-gutter-x));
-  margin-left: calc(-0.5 * var(--bs-gutter-x));
+.main {
+  height: 640px;
+  background: #fbfbfb;
+  position: relative;
+  min-width: 1100px;
 }
 
-
-.context-menu {
-  /*display: none;*/
+.main-login-warp {
+  position: relative;
+  width: 1100px;
+  margin: 0 auto;
+  z-index: 1;
+}
+.title {
+  text-align: center;
+  color: #3F4069;
+}
+.login {
+  width: 400px;
+  height: 540px;
+  top: 50px;
+  right: 10px;
+  text-align: left;
+  border: 2px solid #D4B68B;
   position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  list-style:none;
-  padding: 0;
-  margin: 0;
-  border-radius: 10px;
+  z-index: 2;
+  background: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#f4f4f4));
+  background-image: -webkit-linear-gradient(top,#fff,#f4f4f4);
+  background-image: -moz-linear-gradient(top,#fff 0,#f4f4f4 100%);
+  background-image: linear-gradient(
+    -180deg
+    ,#fff,#f4f4f4);
 }
 
-.context-menu li {
-  width: 100px;
-  list-style:none;
-  padding: 10px;
-  cursor: pointer;
+.carousel {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 0;
 }
 
-.context-menu li:hover {
-  background-color: #f0f0f0;
+.carousel-inner {
+  height: 100%;
+}
+.carousel-inner .item {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 25%;
+}
+.image0 {
+  background-color: #D01E21;
+  /*background-image: url('/assets/images/0.png');*/
 }
 
-.buttonForEdit {
-
+.image1 {
+  background-color: #404B8D;
+  /*background-image: url('/assets/images/1.gif');*/
 }
 
-.buttonForAdd {
 
+.image2 {
+  background-color: #DC010E;
+  /*background-image: url('/assets/images/2.png');*/
 }
 
-.buttonForAlarmValue {
-
+.image3 {
+  background-color: #D4B68B;
+  /*background-image: url('/assets/images/3.png');*/
 }
 
-.buttonForUpdatePassword {
-
+.footer {
+  color: slategray;
+  font-size: 12px;
+  border-top: 1px solid #D4B68B;
 }
-

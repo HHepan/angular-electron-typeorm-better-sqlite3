@@ -11,6 +11,6 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.router.navigateByUrl('index').then();
+    this.router.navigateByUrl('dashboard').then();
   }
 }

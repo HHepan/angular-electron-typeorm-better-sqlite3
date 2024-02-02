@@ -6,4 +6,7 @@ export class Item {
 
   @Column({ type: 'varchar' })
   name: string | undefined;
+
+  @Column({ type: 'varchar' })
+  description: string | undefined;
 }

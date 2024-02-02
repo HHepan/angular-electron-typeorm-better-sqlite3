@@ -1,0 +1,30 @@
+<nav aria-label="breadcrumb" style="background-color: #cfe2ff">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" >&nbsp;新建数据</li>
+  </ol>
+</nav>
+
+<form style="padding-bottom: 0.5rem;" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="form-group row text-right">
+    <label class="col-4 col-form-label"><code>*</code>名称</label>
+    <div class="col-4">
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+  </div>
+  <div class="form-group row text-right mt-2">
+    <label class="col-4 col-form-label"><code>*</code>描述</label>
+    <div class="col-4">
+      <input type="text" class="form-control" formControlName="description">
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-9">
+      &nbsp;
+    </div>
+    <div class="col-3 text-center">
+      <button type="button" class="btn btn-outline-secondary" (click)="onClose()">取消</button>&nbsp;
+      <button type="submit" class="btn btn-outline-primary" [disabled]="formGroup.invalid">保存</button>
+    </div>
+  </div>
+</form>

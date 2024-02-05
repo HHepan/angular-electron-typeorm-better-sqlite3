@@ -36,10 +36,10 @@ orm框架：typeorm v0.3.17
 
 ### 安装依赖
 
-项目有两个`package.json`文件
-1. 位于app（`/app`）中的是主进程需要的依赖，`npm install`安装依赖（使用`cnpm install`依赖包的子依赖会放在`node_modules/.store`中，该文件不会被`electron-builder`打包，可能通过设置可以实现打包该内容，问题暂时保留）。
-2. 在根目录（`/`）的是angular需要的依赖，在下载`angular(渲染器进程)`需要的依赖时需要使用。`npm install`安装。
-3. 安装完成依赖之后需要对主进程的`better-sqlite3`依赖进行重构 (`cd app && ./node_modules/.bin/electron-rebuild -f -w better-sqlite3` ) 。
+项目有两个 `package.json` 文件
+1. 位于app（`/app`）中的是主进程需要的依赖，`npm install` 安装依赖（使用 `cnpm install` 依赖包的子依赖会放在 `node_modules/.store` 中，该文件不会被 `electron-builder` 打包，可能通过设置可以实现打包该内容，问题暂时保留）。
+2. 在根目录（`/`）的是 angular 需要的依赖，在下载 `angular(渲染器进程)` 需要的依赖时需要使用。`npm install` 安装。
+3. 安装完成依赖之后需要对主进程的 `better-sqlite3` 依赖进行重构 (`cd app && ./node_modules/.bin/electron-rebuild -f -w better-sqlite3` ) 。
 
 综上，(根目录下启动终端)安装依赖命令以及顺序为：
 ```angular2html
@@ -53,7 +53,7 @@ npm install // 安装app下的依赖
 ```
 
 ### 根目录下以命令行启动
-方式一：`npm install`
+方式一：`npm start`
 
 方式二：打开两个终端，一个执行`npm run ng:serve`, 另一个执行`npm run electron:serve`
 

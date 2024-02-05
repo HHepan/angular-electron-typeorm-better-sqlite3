@@ -3,10 +3,15 @@
 
 包含内容：
 1. 登录界面
+
 ![img_5.png](src/assets/images/img_5.png)
-2. 主页、菜单栏、右键小菜单显示操作
+
+3. 主页、菜单栏、右键小菜单显示操作
+
 ![img_6.png](src/assets/images/img_6.png)
-3. 路由弹窗、数据增删改查
+
+5. 路由弹窗、数据增删改查
+
 ![img_7.png](src/assets/images/img_7.png)
 
 开发时保留了angular热加载的特性。

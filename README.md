@@ -6,11 +6,11 @@
 
 ![img_5.png](src/assets/images/img_5.png)
 
-3. 主页、菜单栏、右键小菜单显示操作
+2. 主页、菜单栏、右键小菜单显示操作
 
 ![img_6.png](src/assets/images/img_6.png)
 
-5. 路由弹窗、数据增删改查
+3. 路由弹窗、数据增删改查
 
 ![img_7.png](src/assets/images/img_7.png)
 
